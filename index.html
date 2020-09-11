@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrome new tab</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body id="body-background">
+    <header>
+        <nav class="header-nav">
+            <ul class="header-nav-list-wrapper">
+                <li>Gmail</li>
+                <li>이미지</li>
+                <li><button class="toggle-button">다크모드</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="main-container">
+        <h1><img class="image-logo" src="images/logo.png" alt="logo"></h1>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Google 검색 또는 URL 입력">
+            <!-- 이미지를 넣을 예정 -->
+            <img src="images/search.png" alt="검색 아이콘" class="search-icon">
+        </div>
+        <section class="bookmark-section">
+            <div class="bookmark-wrapper">
+                <a href="https://www.naver.com" target="_blank" class="bookmark-item">
+                    <div class="img-icon-wrapper"><img src="images/home.png" alt="아이콘"></div>
+                    <div class="bookmark-text">text</div>
+                </a>
+                <a target="_blank" class="bookmark-item">
+                    <div class="img-icon-wrapper"><img src="images/home.png" alt="아이콘"></div>
+                    <div class="bookmark-text">text</div>
+                </a>
+                <a target="_blank" class="bookmark-item">
+                    <div class="img-icon-wrapper"><img src="images/home.png" alt="아이콘"></div>
+                    <div class="bookmark-text">text</div>
+                </a>
+                <a target="_blank" class="bookmark-item">
+                    <div class="img-icon-wrapper"><img src="images/home.png" alt="아이콘"></div>
+                    <div class="bookmark-text">text</div>
+                </a>
+                <a target="_blank" class="bookmark-item">
+                    <div class="img-icon-wrapper"><img src="images/home.png" alt="아이콘"></div>
+                    <div class="bookmark-text">text</div>
+                </a>
+                <a target="_blank" class="bookmark-item">
+                    <div class="img-icon-wrapper"><img src="images/home.png" alt="아이콘"></div>
+                    <div class="bookmark-text">text</div>
+                </a>
+                <a target="_blank" class="bookmark-item">
+                    <div class="img-icon-wrapper"><img src="images/home.png" alt="아이콘"></div>
+                    <div class="bookmark-text">text</div>
+                </a>
+                <a target="_blank" class="bookmark-item">
+                    <div class="img-icon-wrapper"><img src="images/home.png" alt="아이콘"></div>
+                    <div class="bookmark-text">text</div>
+                </a>
+                <div id="bookmark-plus">
+                    <div class="img-icon-wrapper">
+                        +
+                    </div>
+                    <div class="bookmark-text">text</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- js 파일 메일첨부 불가로 파일 내 소스코드 첨부 -->
+    <script>
+        let toggleButton = document.querySelector(".toggle-button");
+        let bodyBackground = document.querySelector("#body-background");
+        let headerNav = document.querySelector(".header-nav-list-wrapper");
+        let bookmarkWrapper = document.querySelector(".bookmark-wrapper");
+        let searchInput = document.querySelector("#search-input");
+        let bookmarkPlus = document.querySelector("#bookmark-plus");
+
+        // 다크모드를 구현하기
+        toggleButton.addEventListener("click", function() {
+            let imgIconWrappers = document.querySelectorAll(".img-icon-wrapper");
+            let bookmarkTexts = document.querySelectorAll(".bookmark-text");
+
+            toggleButton.textContent = "다크모드";
+            toggleButton.classList.toggle("toggle-button-darkmode");
+            headerNav.classList.toggle("text-darkmode");
+            bodyBackground.classList.toggle("body-background-darkmode");
+            for (let i = 0; i < imgIconWrappers.length; i++) {
+                imgIconWrappers[i].classList.toggle("img-icon-wrapper-darkmode");
+            }
+            for (let i = 0; i < bookmarkTexts.length; i++) {
+                bookmarkTexts[i].classList.toggle("text-darkmode");
+            }
+
+            if (toggleButton.classList.contains("toggle-button-darkmode")) {
+                toggleButton.textContent = "일반모드";
+            }
+        })
+
+        searchInput.addEventListener("keypress", function(e) {
+            if (e.key == "Enter") {
+                if (!e.target.value) {
+                    alert("검색어를 입력해주세요!");
+                    return;
+                }
+
+                // location.href : a 태그처럼 이동하는 역할을 한다.
+                // location.href = "https://www.naver.com";
+                // location.href = `https://www.google.com/search?q=${e.target.value}`;
+                window.open(`https://www.google.com/search?q=${e.target.value}`, "_blank");
+            }
+        })
+
+        bookmarkPlus.addEventListener("click", function() {
+            const bookmarkItems = document.querySelectorAll(".bookmark-item");
+            const bookmarkItem = bookmarkItems[bookmarkItems.length - 1];
+            // cloneNode false를 하면 겉 외형만 복사
+            // true를 하면 내부 안 html 태그까지 전부 복사
+            const clone = bookmarkItem.cloneNode(true);
+
+            // before after
+            bookmarkItem.after(clone);
+        })
+    </script>
+</body>
+</html>
